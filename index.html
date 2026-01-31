@@ -343,50 +343,6 @@
             border: 3px solid #558B2F;
         }
 
-        /* Construction cones */
-        .cone {
-            position: absolute;
-            bottom: 20px;
-            width: 0;
-            height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-bottom: 60px solid #FF6F00;
-            animation: wobble 3s infinite ease-in-out;
-        }
-
-        .cone::before {
-            content: '';
-            position: absolute;
-            bottom: -65px;
-            left: -25px;
-            width: 50px;
-            height: 8px;
-            background: #333;
-            border-radius: 3px;
-        }
-
-        .cone::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: -15px;
-            width: 30px;
-            height: 15px;
-            background: white;
-            border-radius: 2px;
-        }
-
-        .cone:nth-of-type(1) { left: 5%; animation-delay: 0s; }
-        .cone:nth-of-type(2) { left: 15%; animation-delay: 0.5s; }
-        .cone:nth-of-type(3) { right: 15%; animation-delay: 1s; }
-        .cone:nth-of-type(4) { right: 5%; animation-delay: 1.5s; }
-
-        @keyframes wobble {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-
         /* Title */
         .title {
             font-size: 3rem;
@@ -468,12 +424,6 @@
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
-
-    <!-- Construction cones -->
-    <div class="cone"></div>
-    <div class="cone"></div>
-    <div class="cone"></div>
-    <div class="cone"></div>
 
     <!-- Main content -->
     <div class="container">
