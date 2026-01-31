@@ -238,11 +238,11 @@
         }
 
         @keyframes hammer {
-            0%, 100% { transform: rotate(30deg); }
-            50% { transform: rotate(-20deg); }
+            0%, 100% { transform: rotate(30deg) translateY(0); }
+            50% { transform: rotate(30deg) translateY(-25px); }
         }
 
-        /* Hands */
+        /* Hammer - now attached to hand */
         .hand {
             position: absolute;
             bottom: -10px;
@@ -254,19 +254,21 @@
             border-radius: 50%;
         }
 
-        /* Hammer */
         .hammer {
             position: absolute;
-            bottom: 70px;
-            right: 30px;
-            transform: rotate(-45deg);
-            animation: hammerStrike 0.6s infinite ease-in-out;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            transform-origin: bottom center;
             z-index: 15;
         }
 
-        @keyframes hammerStrike {
-            0%, 100% { transform: rotate(-45deg) translateY(0); }
-            50% { transform: rotate(-75deg) translateY(-10px); }
+        .hammer-handle {
+            width: 12px;
+            height: 80px;
+            background: linear-gradient(90deg, #8D6E63 0%, #5D4037 100%);
+            border-radius: 6px;
+            margin: 0 auto;
         }
 
         .hammer-handle {
@@ -463,13 +465,13 @@
                 <div class="hand"></div>
             </div>
             <div class="arm right">
-                <div class="hand"></div>
-            </div>
-
-            <!-- Hammer -->
-            <div class="hammer">
-                <div class="hammer-head"></div>
-                <div class="hammer-handle"></div>
+                <div class="hand">
+                    <!-- Hammer attached to hand -->
+                    <div class="hammer">
+                        <div class="hammer-head"></div>
+                        <div class="hammer-handle"></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Impact effect -->
@@ -547,26 +549,44 @@
 
         // Add click interaction
         document.querySelector('.frog-container').addEventListener('click', () => {
-            const frog = document.querySelector('.frog-body');
-            frog.style.animation = 'bounce 0.5s ease';
+            // Animate the whole frog container instead of just the belly
+            const frogContainer = document.querySelector('.frog-container');
+            frogContainer.style.animation = 'frogBounce 0.5s ease';
             setTimeout(() => {
-                frog.style.animation = '';
+                frogContainer.style.animation = '';
             }, 500);
             
-            // Create a fun effect
+            // Create explosion effect
             const container = document.querySelector('.container');
-            const emoji = document.createElement('div');
-            emoji.textContent = '🔨';
-            emoji.style.position = 'absolute';
-            emoji.style.fontSize = '2rem';
-            emoji.style.left = Math.random() * 80 + 10 + '%';
-            emoji.style.top = '50%';
-            emoji.style.pointerEvents = 'none';
-            emoji.style.animation = 'floatUp 1s ease-out forwards';
-            container.appendChild(emoji);
-            
-            setTimeout(() => emoji.remove(), 1000);
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.textContent = ['✨', '⭐', '💥', '🎉'][Math.floor(Math.random() * 4)];
+                particle.style.position = 'absolute';
+                particle.style.fontSize = '1.5rem';
+                particle.style.left = '50%';
+                particle.style.top = '40%';
+                particle.style.pointerEvents = 'none';
+                const angle = (i / 8) * 360;
+                particle.style.animation = `explode 0.6s ease-out forwards`;
+                particle.style.setProperty('--angle', `${angle}deg`);
+                container.appendChild(particle);
+                setTimeout(() => particle.remove(), 600);
+            }
         });
+
+        // Add explode animation
+        const explodeStyle = document.createElement('style');
+        explodeStyle.textContent = `
+            @keyframes explode {
+                0% { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(0); opacity: 1; }
+                100% { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(80px); opacity: 0; }
+            }
+            @keyframes frogBounce {
+                0%, 100% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-20px) scale(1.05); }
+            }
+        `;
+        document.head.appendChild(explodeStyle);
 
         // Add floatUp animation dynamically
         const style = document.createElement('style');
