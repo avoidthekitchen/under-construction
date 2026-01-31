@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction 🐸</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFDAB9 50%, #FFCBA4 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Comic Sans MS', 'Chalkboard', 'Arial Rounded MT Bold', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating dust particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #DEB887;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 25%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 40%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 60%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 75%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 90%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        /* The Frog Character */
+        .frog-container {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            margin: 0 auto 30px;
+        }
+
+        /* Frog body */
+        .frog-body {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 140px;
+            background: linear-gradient(145deg, #7CB342 0%, #558B2F 100%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Frog belly */
+        .frog-belly {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 80px;
+            background: linear-gradient(145deg, #C5E1A5 0%, #AED581 100%);
+            border-radius: 50%;
+        }
+
+        /* Frog head - positioned relative for eyes */
+        .frog-head {
+            position: absolute;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 110px;
+            background: linear-gradient(145deg, #7CB342 0%, #558B2F 100%);
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Eyeballs */
+        .eye {
+            position: absolute;
+            top: 25px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid #558B2F;
+            overflow: hidden;
+            animation: blink 4s infinite;
+        }
+
+        .eye.left { left: 20px; }
+        .eye.right { right: 20px; }
+
+        /* Pupils */
+        .pupil {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #212121;
+            border-radius: 50%;
+        }
+
+        .pupil::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        @keyframes blink {
+            0%, 45%, 55%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+        }
+
+        /* Hard Hat */
+        .hard-hat {
+            position: absolute;
+            bottom: 255px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+
+        .hat-dome {
+            width: 100px;
+            height: 50px;
+            background: linear-gradient(145deg, #FFD700 0%, #FFA000 100%);
+            border-radius: 50px 50px 0 0;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .hat-ridge {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(145deg, #FFC107 0%, #FF8F00 100%);
+            border-radius: 50%;
+        }
+
+        .hat-brim {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 15px;
+            background: linear-gradient(145deg, #FFD700 0%, #FFA000 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Mouth */
+        .mouth {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 22px;
+            border: 4px solid #33691E;
+            border-top: none;
+            border-radius: 0 0 50px 50px;
+            background: transparent;
+        }
+
+        /* Cheeks */
+        .cheek {
+            position: absolute;
+            top: 50px;
+            width: 22px;
+            height: 18px;
+            background: #FF8A80;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .cheek.left { left: 15px; }
+        .cheek.right { right: 15px; }
+
+        /* Arms */
+        .arm {
+            position: absolute;
+            bottom: 100px;
+            width: 25px;
+            height: 60px;
+            background: linear-gradient(145deg, #7CB342 0%, #558B2F 100%);
+            border-radius: 50%;
+        }
+
+        .arm.left {
+            left: 55px;
+            transform: rotate(-30deg);
+            transform-origin: top center;
+        }
+
+        .arm.right {
+            right: 55px;
+            transform: rotate(30deg);
+            transform-origin: top center;
+            animation: hammer 0.6s infinite ease-in-out;
+        }
+
+        @keyframes hammer {
+            0%, 100% { transform: rotate(30deg); }
+            50% { transform: rotate(-20deg); }
+        }
+
+        /* Hands */
+        .hand {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 25px;
+            background: #C5E1A5;
+            border-radius: 50%;
+        }
+
+        /* Hammer */
+        .hammer {
+            position: absolute;
+            bottom: 70px;
+            right: 30px;
+            transform: rotate(-45deg);
+            animation: hammerStrike 0.6s infinite ease-in-out;
+            z-index: 15;
+        }
+
+        @keyframes hammerStrike {
+            0%, 100% { transform: rotate(-45deg) translateY(0); }
+            50% { transform: rotate(-75deg) translateY(-10px); }
+        }
+
+        .hammer-handle {
+            width: 12px;
+            height: 80px;
+            background: linear-gradient(90deg, #8D6E63 0%, #5D4037 100%);
+            border-radius: 6px;
+            margin: 0 auto;
+        }
+
+        .hammer-head {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(145deg, #90A4AE 0%, #546E7A 100%);
+            border-radius: 5px;
+        }
+
+        /* Impact stars */
+        .impact {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+            opacity: 0;
+            animation: impactFlash 0.6s infinite;
+        }
+
+        @keyframes impactFlash {
+            0%, 45%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .star {
+            position: absolute;
+            color: #FFD700;
+            font-size: 24px;
+            animation: starSpin 0.6s infinite linear;
+        }
+
+        .star:nth-child(1) { transform: rotate(0deg) translateX(20px); }
+        .star:nth-child(2) { transform: rotate(120deg) translateX(20px); }
+        .star:nth-child(3) { transform: rotate(240deg) translateX(20px); }
+
+        @keyframes starSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Legs */
+        .leg {
+            position: absolute;
+            bottom: 0;
+            width: 35px;
+            height: 50px;
+            background: linear-gradient(145deg, #7CB342 0%, #558B2F 100%);
+            border-radius: 50%;
+        }
+
+        .leg.left { left: 70px; }
+        .leg.right { right: 70px; }
+
+        /* Feet */
+        .foot {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 25px;
+            background: #C5E1A5;
+            border-radius: 50%;
+            border: 3px solid #558B2F;
+        }
+
+        /* Construction cones */
+        .cone {
+            position: absolute;
+            bottom: 20px;
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 60px solid #FF6F00;
+            animation: wobble 3s infinite ease-in-out;
+        }
+
+        .cone::before {
+            content: '';
+            position: absolute;
+            bottom: -65px;
+            left: -25px;
+            width: 50px;
+            height: 8px;
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .cone::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -15px;
+            width: 30px;
+            height: 15px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .cone:nth-of-type(1) { left: 5%; animation-delay: 0s; }
+        .cone:nth-of-type(2) { left: 15%; animation-delay: 0.5s; }
+        .cone:nth-of-type(3) { right: 15%; animation-delay: 1s; }
+        .cone:nth-of-type(4) { right: 5%; animation-delay: 1.5s; }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Title */
+        .title {
+            font-size: 3rem;
+            color: #E65100;
+            text-shadow: 3px 3px 0 #FFD54F, 6px 6px 0 rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 1.3rem;
+            color: #5D4037;
+            margin-bottom: 30px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* Progress bar container */
+        .progress-container {
+            width: 300px;
+            height: 30px;
+            background: #FFF3E0;
+            border-radius: 15px;
+            border: 4px solid #FF8F00;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Progress bar fill */
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: repeating-linear-gradient(
+                45deg,
+                #FFD54F,
+                #FFD54F 10px,
+                #FF8F00 10px,
+                #FF8F00 20px
+            );
+            border-radius: 10px;
+            animation: progress 4s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 143, 0, 0.5);
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Progress text */
+        .progress-text {
+            font-size: 1.1rem;
+            color: #E65100;
+            font-weight: bold;
+        }
+
+        /* Decorative tools */
+        .tool {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: floatTool 6s infinite ease-in-out;
+        }
+
+        .tool:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .tool:nth-child(2) { top: 20%; right: 8%; animation-delay: 1s; }
+        .tool:nth-child(3) { top: 60%; left: 8%; animation-delay: 2s; }
+        .tool:nth-child(4) { bottom: 30%; right: 5%; animation-delay: 3s; }
+
+        @keyframes floatTool {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .subtitle { font-size: 1rem; }
+            .frog-container { transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Decorative floating tools -->
+    <div class="tool">🔧</div>
+    <div class="tool">🔨</div>
+    <div class="tool">⚙️</div>
+    <div class="tool">🛠️</div>
+
+    <!-- Construction cones -->
+    <div class="cone"></div>
+    <div class="cone"></div>
+    <div class="cone"></div>
+    <div class="cone"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- The Frog -->
+        <div class="frog-container">
+            <!-- Hard hat -->
+            <div class="hard-hat">
+                <div class="hat-dome">
+                    <div class="hat-ridge"></div>
+                </div>
+                <div class="hat-brim"></div>
+            </div>
+
+            <!-- Head -->
+            <div class="frog-head">
+                <!-- Eyes on face -->
+                <div class="eye left">
+                    <div class="pupil"></div>
+                </div>
+                <div class="eye right">
+                    <div class="pupil"></div>
+                </div>
+                <!-- Cheeks -->
+                <div class="cheek left"></div>
+                <div class="cheek right"></div>
+                <!-- Mouth -->
+                <div class="mouth"></div>
+            </div>
+
+            <!-- Body -->
+            <div class="frog-body">
+                <div class="frog-belly"></div>
+            </div>
+
+            <!-- Arms -->
+            <div class="arm left">
+                <div class="hand"></div>
+            </div>
+            <div class="arm right">
+                <div class="hand"></div>
+            </div>
+
+            <!-- Hammer -->
+            <div class="hammer">
+                <div class="hammer-head"></div>
+                <div class="hammer-handle"></div>
+            </div>
+
+            <!-- Impact effect -->
+            <div class="impact">
+                <div class="star">⭐</div>
+                <div class="star">⭐</div>
+                <div class="star">⭐</div>
+            </div>
+
+            <!-- Legs -->
+            <div class="leg left">
+                <div class="foot"></div>
+            </div>
+            <div class="leg right">
+                <div class="foot"></div>
+            </div>
+        </div>
+
+        <!-- Text content -->
+        <h1 class="title">🚧 Under Construction 🚧</h1>
+        <p class="subtitle">
+            Our friendly frog crew is working hard to build something amazing!<br>
+            Please hop back soon! 🐸
+        </p>
+
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <p class="progress-text">Building in progress...</p>
+    </div>
+
+    <script>
+        // Interactive eye movement
+        document.addEventListener('mousemove', (e) => {
+            const eyes = document.querySelectorAll('.eye');
+            const pupils = document.querySelectorAll('.pupil');
+            
+            eyes.forEach((eye, index) => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                
+                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                const distance = Math.min(8, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 20);
+                
+                const pupil = pupils[index];
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                pupil.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+            });
+        });
+
+        // Random ribbit messages
+        const messages = [
+            "Ribbit! Hammering away! 🔨",
+            "Croak! Almost done! 🐸",
+            "Just a few more hops! 🦘",
+            "Building something toad-ally awesome! ✨",
+            "Working hard, no time to lily-pad around! 💪"
+        ];
+
+        const subtitle = document.querySelector('.subtitle');
+        let messageIndex = 0;
+
+        setInterval(() => {
+            messageIndex = (messageIndex + 1) % messages.length;
+            subtitle.style.opacity = '0';
+            setTimeout(() => {
+                subtitle.innerHTML = messages[messageIndex] + '<br>Please hop back soon! 🐸';
+                subtitle.style.opacity = '1';
+            }, 300);
+        }, 5000);
+
+        // Add click interaction
+        document.querySelector('.frog-container').addEventListener('click', () => {
+            const frog = document.querySelector('.frog-body');
+            frog.style.animation = 'bounce 0.5s ease';
+            setTimeout(() => {
+                frog.style.animation = '';
+            }, 500);
+            
+            // Create a fun effect
+            const container = document.querySelector('.container');
+            const emoji = document.createElement('div');
+            emoji.textContent = '🔨';
+            emoji.style.position = 'absolute';
+            emoji.style.fontSize = '2rem';
+            emoji.style.left = Math.random() * 80 + 10 + '%';
+            emoji.style.top = '50%';
+            emoji.style.pointerEvents = 'none';
+            emoji.style.animation = 'floatUp 1s ease-out forwards';
+            container.appendChild(emoji);
+            
+            setTimeout(() => emoji.remove(), 1000);
+        });
+
+        // Add floatUp animation dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-100px);
+                    opacity: 0;
+                }
+            }
+            .subtitle {
+                transition: opacity 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Console easter egg
+        console.log('🐸 Ribbit! Thanks for visiting! The frog crew is working hard!');
+        console.log('🔨 Hammering out bugs and building features...');
+    </script>
+</body>
+</html>
