@@ -232,14 +232,14 @@
 
         .arm.right {
             right: 55px;
-            transform: rotate(0deg);
-            transform-origin: top center;
+            transform: rotate(-25deg);
+            transform-origin: bottom center;
             animation: armSwing 0.6s infinite ease-in-out;
         }
 
         @keyframes armSwing {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
+            0%, 100% { transform: rotate(-25deg) translateY(10px); }
+            50% { transform: rotate(-25deg) translateY(-20px); }
         }
 
         /* Hand holding the hammer */
