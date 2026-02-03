@@ -574,15 +574,11 @@
                 100% { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(80px); opacity: 0; }
             }
             @keyframes frogBounce {
-                0%, 100% { transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
-                50% { transform: translate3d(0, -20px, 0) scale3d(1.05, 1.05, 1); }
-            }
-            .frog-container {
-                will-change: transform;
+                0%, 100% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-20px) scale(1.05); }
             }
             .frog-container.frog-bouncing {
-                animation: frogBounce 0.5s ease forwards;
-                animation-fill-mode: both;
+                animation: frogBounce 0.5s ease;
             }
         `;
         document.head.appendChild(explodeStyle);
