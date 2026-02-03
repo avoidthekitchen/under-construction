@@ -543,9 +543,9 @@
         document.querySelector('.frog-container').addEventListener('click', () => {
             // Animate the whole frog container instead of just the belly
             const frogContainer = document.querySelector('.frog-container');
-            frogContainer.style.animation = 'frogBounce 0.5s ease';
+            frogContainer.classList.add('frog-bouncing');
             setTimeout(() => {
-                frogContainer.style.animation = '';
+                frogContainer.classList.remove('frog-bouncing');
             }, 500);
             
             // Create explosion effect
@@ -574,8 +574,15 @@
                 100% { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(80px); opacity: 0; }
             }
             @keyframes frogBounce {
-                0%, 100% { transform: translateY(0) scale(1); }
-                50% { transform: translateY(-20px) scale(1.05); }
+                0%, 100% { transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
+                50% { transform: translate3d(0, -20px, 0) scale3d(1.05, 1.05, 1); }
+            }
+            .frog-container {
+                will-change: transform;
+            }
+            .frog-container.frog-bouncing {
+                animation: frogBounce 0.5s ease forwards;
+                animation-fill-mode: both;
             }
         `;
         document.head.appendChild(explodeStyle);
